@@ -13,6 +13,11 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+    def get_permissions(self):
+        if self.action == "create":  # Only allow unauthenticated create
+            return [AllowAny()]
+        return [IsAuthenticated()]
+
 
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
@@ -31,12 +36,16 @@ class MovieViewSet(viewsets.ModelViewSet):
                 rating = Rating.objects.get(user=user.id, movie=movie.id)
                 rating.stars = stars
                 rating.save()
-                serializer = RatingSerializer(rating, many=False)
-                response = {'message': 'Rating updated ', 'result': serializer.data}
+                # serializer = RatingSerializer(rating, many=False)
+                # response = {'message': 'Rating updated ', 'result': serializer.data}
+                message = "Rating updated"
             except:
                 Rating.objects.create(user=user, movie=movie, stars=stars)
-                serializer = RatingSerializer(rating, many=False)
-                response = {'message': 'Rating created', 'result': serializer.data}
+                # serializer = RatingSerializer(rating, many=False)
+                # response = {'message': 'Rating created', 'result': serializer.data}
+                message = "Rating created"
+            serializer = MovieSerializer(movie, many=False)
+            response = {'message': message, 'movie': serializer.data}
         else:
             response = {'message': 'You need to provide stars'}
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
