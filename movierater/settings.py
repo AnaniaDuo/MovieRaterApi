@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-vgjm8)ev1tx2@jkidhy42=v!pc%rj@p8p06gcoq#_5a&2yo#$-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "anhhduong.pythonanywhere.com"
+]
 
 
 # Application definition
@@ -49,7 +53,6 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -62,7 +65,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://movie-rater-6bae5.web.app",
     "https://movie-rater-6bae5.firebaseapp.com",
-
 ]
 
 TEMPLATES = [

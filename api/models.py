@@ -16,10 +16,10 @@ class Movie(models.Model):
         ratings = Rating.objects.filter(movie=self)
         for rating in ratings:
             sum_ratings += rating.stars
-            if len(ratings) > 0:
-                return sum_ratings/len(ratings)
-            else:
-                return 0
+        if len(ratings) > 0:
+            return sum_ratings/len(ratings)
+        else:
+            return 0
 
 
 # when movie is removed, ratings will be automatically removed as well
